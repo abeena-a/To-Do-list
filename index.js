@@ -45,7 +45,7 @@ btnAdd.addEventListener('click', () => {
             const span = taskItem.querySelector("span");
             const updatedTask = prompt("Update Your Task : " + span.textContent);
             console.log(updatedTask);
-            
+
 
             if (updatedTask.trim()) {
                 span.textContent = updatedTask;
@@ -55,32 +55,20 @@ btnAdd.addEventListener('click', () => {
 
 
 
-        // btnDelete.addEventListener('click', () => {
-        //     const span = taskItem.querySelector("span"); 
-        //     const confirmDelete = confirm("Are you sure you want to delete this task: '" + span.textContent + "' ?");
-
-        //     if (confirmDelete) {
-        //         taskItem.remove();
-
-        //     }
-        //     if (taskList.children.length === 0) {
-        //         emptyMessage.style.display = "block";
-        //     }
-        // });
 
         btnDelete.addEventListener('click', () => {
-  const span = taskItem.querySelector("span");
-  const confirmDelete = confirm("Are you sure you want to delete this task: '" + span.textContent + "' ?");
+            const span = taskItem.querySelector("span");
+            const confirmDelete = confirm("Are you sure you want to delete this task: '" + span.textContent + "' ?");
 
-  if (confirmDelete) {
-    taskItem.remove();
-  }
+            if (confirmDelete) {
+                taskItem.remove();
+            }
 
-  // Check if only the emptyMessage remains
-  if (taskList.querySelectorAll("li:not(#emptyMessage)").length === 0) {
-    emptyMessage.style.display = "block";
-  }
-});
+            // Check if only the emptyMessage remains
+            if (taskList.querySelectorAll("li:not(#emptyMessage)").length === 0) {
+                emptyMessage.style.display = "block";
+            }
+        });
 
 
         const tickCheckbox = taskItem.querySelector("input[type=checkbox]");
@@ -105,4 +93,13 @@ btnAdd.addEventListener('click', () => {
     }
 
 })
+
+
+window.addEventListener("beforeunload", function (event) {
+  if (taskList.querySelectorAll("li:not(#emptyMessage)").length > 0) {
+    event.preventDefault();
+    event.returnValue = "You have tasks in your list. Are you sure you want to leave?";
+  }
+})
+
 
